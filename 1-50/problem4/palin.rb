@@ -1,13 +1,9 @@
 a = []
-i = 990
-while i >= 100
+990.step(100, -11) do |i|
   999.downto(100) do |j|
     n = i*j
     s = n.to_s
-    if s == s.reverse
-      a << n
-    end
+    a << n if s == s.reverse
   end
-  i -= 11
 end
 puts a.max
