@@ -1,0 +1,1 @@
+puts (1..1000).inject(0){|sum, item| sum + item**item}.to_s[-10,10]
