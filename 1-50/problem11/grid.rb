@@ -17,34 +17,35 @@ arr = "08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 04 42 16 73 38 25 39 11 24 94 72 18 08 46 29 32 40 62 76 36
 20 69 36 41 72 30 23 88 34 62 99 69 82 67 59 85 74 04 36 16
 20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54
-01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48".split("\n").map!{|line| line.split.map!{|x| x.to_i}}
+01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48"
+.lines.map { |line| line.split(" ").map { |x| x.to_i } }
 
 ROWS = arr.size
 COLS = arr[0].size
-parts = []
+max = 0
 
 0.upto(ROWS - 4) do |r|
   0.upto(COLS - 4) do |c|
-    parts << (arr[r][c] * arr[r+1][c+1] * arr[r+2][c+2] * arr[r+3][c+3])
+    max = [arr[r][c] * arr[r+1][c+1] * arr[r+2][c+2] * arr[r+3][c+3], max].max
   end
 end
 
 3.upto(ROWS - 1) do |r|
   0.upto(COLS - 4) do |c|
-    parts << (arr[r][c] * arr[r-1][c+1] * arr[r-2][c+2] * arr[r-3][c+3])
+    max = [arr[r][c] * arr[r-1][c+1] * arr[r-2][c+2] * arr[r-3][c+3], max].max
   end
 end
 
 0.upto(ROWS - 4) do |r|
   0.upto(COLS - 1) do |c|
-    parts << (arr[r][c] * arr[r+1][c] * arr[r+2][c] * arr[r+3][c])
+    max = [arr[r][c] * arr[r+1][c] * arr[r+2][c] * arr[r+3][c], max].max
   end
 end
 
 0.upto(ROWS - 1) do |r|
   0.upto(COLS - 4) do |c|
-    parts << (arr[r][c] * arr[r][c+1] * arr[r][c+2] * arr[r][c+3])
+    max = [arr[r][c] * arr[r][c+1] * arr[r][c+2] * arr[r][c+3], max].max
   end
 end
 
-puts parts.max
+puts max
