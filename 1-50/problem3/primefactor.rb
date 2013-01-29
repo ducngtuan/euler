@@ -1,11 +1,7 @@
 n = 600851475143
 i = 2
-begin
-  puts i if n%i == 0
-  while n%i == 0
-    n /= i
-  end
+while n != 1
+  n /= i while n % i == 0
   i += 1
-end until n==1
-
-puts i-1
+end
+puts i - 1
