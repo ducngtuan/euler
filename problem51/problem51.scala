@@ -27,7 +27,7 @@ val firstFilter = filledPatterns.map { p =>
   val nums = for {
     r <- digits._1
     if !(r == '0' && p.startsWith("x"))
-    val num = generateNumber(p, r)
+    num = generateNumber(p, r)
     if isPrime(num)
   } yield num
   (p, nums)
@@ -36,7 +36,7 @@ val firstFilter = filledPatterns.map { p =>
 val secondFilter = firstFilter.map { case (p, l) =>
   val nums = for {
     r <- digits._2
-    val num = generateNumber(p, r)
+    num = generateNumber(p, r)
     if isPrime(num)
   } yield num
   (p, l ::: nums)
