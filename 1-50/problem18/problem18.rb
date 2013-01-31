@@ -16,13 +16,10 @@ input = <<END_OF_INPUT
 04 62 98 27 23 09 70 98 73 93 38 53 60 04 23
 END_OF_INPUT
 
-$triangle = input.split("\n").map{|line| line.split.map!{|x| x.to_i}}
-
-def max_sum(row, col)
-  left = (row == 0) ? 0 : ((col == 0) ? 0 : max_sum(row - 1, col - 1))
-  right = (row == 0) ? 0 : ((col == $triangle[row].size - 1) ? 0 : max_sum(row - 1, col))
-  return $triangle[row][col] + [left, right].max
+triangle = input.lines.map { |line| line.split(' ').map { |x| x.to_i } }
+(triangle.length - 2).downto(0) do |row|
+  0.upto(triangle[row].length - 1) do |col|
+    triangle[row][col] += [triangle[row + 1][col], triangle[row + 1][col + 1]].max
+  end
 end
-sums = []
-0.upto($triangle.last.size - 1) {|i| sums << max_sum($triangle.size - 1, i)}
-puts sums.max
+puts triangle[0][0]

@@ -1,15 +1,11 @@
-sums = Array.new(10000, 0)
+sums = Array.new(10000, 1)
 
-1.upto(9999) do |i|
-  factor = 2
-  multiple = factor * i
-  while multiple < 10000
-    sums[multiple] += i
-    factor += 1
-    multiple = factor * i
+2.upto(9999) do |i|
+  (i + i).step(9999, i) do |j|
+    sums[j] += i
   end
 end
 
 result = 0
-1.upto(9999){|x| result += sums[x] if x == sums[sums[x]] and sums[x] != x}
+sums.each_with_index { |e, x| result += e if x == sums[sums[x]] and sums[x] != x }
 puts result

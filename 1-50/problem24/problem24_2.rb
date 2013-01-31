@@ -1,12 +1,15 @@
-def permutate(list)
-  return [list] if list.size < 2
+def fakultat(n)
+  (1..n).inject(1, &:*)
+end
+
+def permutation(digits, nth)
   result = []
-  0.upto(list.size - 1) do |i|
-    element = list.delete_at(i)
-    result += permutate(list).map!{|permutation| [element] + permutation}
-    list.insert(i, element)
+  (digits.length - 1).downto(0) do |digit|
+    d = nth / fakultat(digit)
+    result << digits.delete_at(d)
+    nth -= d * fakultat(digit)
   end
   return result
 end
 
-p permutate((0..9).to_a)[999_999]
+puts permutation((0..9).to_a, 999999).join

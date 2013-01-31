@@ -1,34 +1,23 @@
 def abundant?(n)
-  divisors = []
-  1.upto(n**0.5) do |i|
-    if n%i == 0
-      divisors << i
-      divisors << n/i
-    end
-  end
-  return true if divisors.uniq.inject(0){|s, i| s+i} > 2*n
-  false
+  sqrt = (n**0.5).to_i
+  div_sum = 0
+  1.upto(sqrt) { |i| div_sum += i + n/i if n % i == 0 }
+  div_sum -= sqrt if sqrt * sqrt == n
+  
+  return div_sum > 2 * n
 end
  
-module Enumerable
-  def sum
-    inject(0) {|n,i| n + i }
-  end
-end
- 
-max_num = 20_200
- 
-abundants = (1..max_num).select {|i| abundant?(i) }
- 
-sums = Hash.new
+max_num = 20_200 
+abundants = (1..max_num).select { |i| abundant?(i) }
+sums = []
 until abundants.empty?
   i = abundants.shift
-  sums[i*2] = 1
+  sums << i * 2
   abundants.each do |j|
     sum = i + j
+    sums << sum
     break if sum > max_num
-    sums[sum] = 1
   end
 end
  
-p ((1..max_num).to_a - sums.keys).sum
+puts ((1..max_num).to_a - sums).inject(&:+)
