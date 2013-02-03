@@ -1,8 +1,7 @@
-def generate(n)
-  return 0 if n.zero?
-  return n + generate(n-1) if n % 2 == 1
-  
-  return n * (n + 1) / 2
+def generate(n, acc = 0)
+  return acc if n.zero?
+  return generate(n-1, n + acc) if n % 2 == 1
+  return acc + n * (n + 1) / 2
 end
 
 def divisors_count(n)

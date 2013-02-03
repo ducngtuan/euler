@@ -1,10 +1,10 @@
-def generate(n):
+def generate(n, acc=0):
     if n == 0:
-        return 0
+        return acc
     if n % 2 == 1:
-        return n + generate(n - 1)
+        return generate(n - 1, n + acc)
 
-    return n * (n + 1) / 2
+    return acc + n * (n + 1) / 2
 
 def divisors_count(n):
     sqrt = int(n**0.5)
