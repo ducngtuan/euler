@@ -1,0 +1,1 @@
+println((1 to 100).foldLeft(BigInt(1))(_ * _).toString.map(_ - '0'.toInt).sum)
